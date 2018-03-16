@@ -4,5 +4,21 @@
   "description": "Backend for Ranguz Project",
   "main": "index.js",
   "author": "Alisson Morais <alissonfpmorais@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "bcrypt": "^1.0.3",
+    "express": "^4.16.2",
+    "mongoose": "^5.0.10"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "babel-register": "^6.26.0",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^7.0.1",
+    "gulp-load-plugins": "^1.5.0",
+    "gulp-nodemon": "^2.2.1"
+  }
 }
