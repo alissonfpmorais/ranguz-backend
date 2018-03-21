@@ -1,10 +1,6 @@
 import mongoose from 'mongoose'
 
 const OrderSchema = new mongoose.Schema({
-    id: {
-        type: Number,
-        required: true
-    },
     date: {
         type: Date,
         default: Date.now
