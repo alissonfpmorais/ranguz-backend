@@ -4,8 +4,7 @@ import bcrypt from 'bcrypt'
 const ClientSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true,
-        trim: true
+        required: true
     },
     cpf: {
         type: String,

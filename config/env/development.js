@@ -1,5 +1,7 @@
 export default {
     env: `development`,
     db: `mongodb://ranguz:cantinafacil@ds215019.mlab.com:15019/ranguz-db`,
-    port: 3000
+    port: 3000,
+    jwtSecret: 'ranguz-api-secret',
+    jwtDuration: '2 hours'
 }
