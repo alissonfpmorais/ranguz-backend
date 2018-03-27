@@ -1,16 +1,17 @@
 import express from 'express'
 import orderCtrl from '../controllers/orders'
+import auth from '../../config/auth'
 
 const router = express.Router()
 
 router.route('/')
     .get(orderCtrl.list)
-    .post(orderCtrl.create)
+    .post(auth.clientAuth, orderCtrl.create)
 
 router.route('/:orderId')
     .get(orderCtrl.get)
-    .put(orderCtrl.update)
-    .delete(orderCtrl.remove)
+    .put(auth.adminAuth, orderCtrl.update)
+    .delete(auth.adminAuth, orderCtrl.remove)
 
 router.param('orderId', orderCtrl.load)
 

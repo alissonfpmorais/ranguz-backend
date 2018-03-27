@@ -1,6 +1,7 @@
 import config from './env'
 import jwt from 'express-jwt'
 
-const authenticate = jwt({ secret: config.jwtSecret })
+const adminAuth = jwt({ secret: config.jwtAdminSecret })
+const clientAuth = jwt({ secret: config.jwtClientSecret })
 
-export default authenticate
+export default { adminAuth, clientAuth }

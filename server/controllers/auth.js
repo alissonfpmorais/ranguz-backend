@@ -10,6 +10,9 @@ function adminSecurity(req, res, next) {
     .exec()
     .then(admin => {
         req.maybeUser = admin
+        req.secret = config.jwtAdminSecret
+        req.duration = config.jwtDuration
+
         next()
     }, e => next(e))
 }
@@ -21,6 +24,9 @@ function clientSecurity(req, res, next) {
     .exec()
     .then(client => {
         req.maybeUser = client
+        req.secret = config.jwtClientSecret
+        req.duration = config.jwtDuration
+
         next()
     }, e => next(e))
 }
@@ -46,8 +52,8 @@ function generateToken(req, res, next) {
     if (!req.user) return next()
 
     const jwtPayload = { id: req.user._id }
-    const jwtData = { expiresIn: config.jwtDuration }
-    const jwtSecret = config.jwtSecret
+    const jwtData = { expiresIn: req.duration }
+    const jwtSecret = req.secret
 
     req.token = jwt.sign(jwtPayload, jwtSecret, jwtData)
 

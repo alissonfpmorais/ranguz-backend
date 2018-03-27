@@ -1,6 +1,7 @@
 import express from 'express'
 import clientCtrl from '../controllers/clients'
 import authCtrl from '../controllers/auth'
+import auth from '../../config/auth'
 
 const router = express.Router()
 
@@ -10,8 +11,8 @@ router.route('/')
 
 router.route('/:clientId')
     .get(clientCtrl.get)
-    .put(clientCtrl.update)
-    .delete(clientCtrl.remove)
+    .put(auth.clientAuth, clientCtrl.update)
+    .delete(auth.clientAuth, clientCtrl.remove)
 
 router.route('/auth')
     .post(authCtrl.clientSecurity,
