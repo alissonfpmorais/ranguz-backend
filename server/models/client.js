@@ -28,7 +28,7 @@ const ClientSchema = new mongoose.Schema({
     }
 })
 
-ClientSchema.pre('clientSave', function (next) {
+ClientSchema.pre('save', function (next) {
     const client = this
 
     if (!client.isModified('password')) return next()

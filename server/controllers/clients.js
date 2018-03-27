@@ -45,7 +45,7 @@ function remove(req, res, next) {
     const client = req.dbClient
 
     client.remove()
-        .then(() => res.sendStatus(204), next(e))
+        .then(() => res.sendStatus(204), e => next(e))
 }
 
 export default { load, get, create, update, list, remove }

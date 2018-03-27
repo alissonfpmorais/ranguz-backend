@@ -14,7 +14,7 @@ const AdminSchema = new mongoose.Schema({
     }
 })
 
-AdminSchema.pre('adminSave', function (next) {
+AdminSchema.pre('save', function (next) {
     const admin = this
 
     if (!admin.isModified('password')) return next()
@@ -25,7 +25,7 @@ AdminSchema.pre('adminSave', function (next) {
         bcrypt.hash(admin.password, salt, (hashErr, hash) => {
             if (hashErr) return next(hashErr)
 
-            user.password = hash
+            admin.password = hash
             next()
         }) 
     })

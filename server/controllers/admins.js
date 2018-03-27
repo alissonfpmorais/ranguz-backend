@@ -42,7 +42,7 @@ function remove(req, res, next) {
     const admin = req.dbAdmin
 
     admin.remove()
-        .then(() => res.sendStatus(204), next(e))
+        .then(() => res.sendStatus(204), e => next(e))
 }
 
 export default { load, get, create, update, list, remove }
