@@ -5,12 +5,18 @@
   "main": "index.js",
   "author": "Alisson Morais <alissonfpmorais@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "start": "gulp nodemon"
+  },
   "dependencies": {
     "babel-plugin-add-module-exports": "^0.2.1",
     "bcrypt": "^1.0.3",
     "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
     "express": "^4.16.2",
     "express-jwt": "^5.3.1",
+    "express-validation": "^1.0.2",
+    "joi": "^13.1.2",
     "jsonwebtoken": "^8.2.0",
     "mongoose": "^5.0.10"
   },

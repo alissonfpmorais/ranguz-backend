@@ -21,9 +21,13 @@ const ClientSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
+    rfid: {
+        type: String,
+        required: true
+    },
     balance: {
         type: Number,
-        required: true,
+        default: 0
     }
 })
 
@@ -44,7 +48,7 @@ ClientSchema.pre('save', function (next) {
     })
 })
 
-ClientSchema.methods.comparePassword = function(toCompare, done) {
+ClientSchema.methods.comparePassword = function (toCompare, done) {
     bcrypt.compare(toCompare, this.password, (err, isMatch) => {
         if (err) done(err)
         else done(err, isMatch)

@@ -1,4 +1,5 @@
 import Admin from '../models/admin'
+import { transformResource } from './base'
 
 function load(req, res, next, id) {
     Admin.findById(id)
@@ -10,14 +11,14 @@ function load(req, res, next, id) {
 }
 
 function get(req, res) {
-    return res.json(req.dbAdmin)
+    return res.json(transformResource(req.dbAdmin))
 }
 
 function create(req, res, next) {
     Admin.create({
         username: req.body.username,
         password: req.body.password
-    }).then(savedAdmin => res.json(savedAdmin), e => next(e))
+    }).then(savedAdmin => res.json(transformResource(savedAdmin)), e => next(e))
 }
 
 function update(req, res, next) {
@@ -35,7 +36,10 @@ function list(req, res, next) {
         .skip(skip)
         .limit(limit)
         .exec()
-        .then(admins => res.json(admins), e => next(e))
+        .then(adminsDb => {
+            const admins = adminsDb.map(adminsDb => transformResource(adminsDb))
+            return res.json(admins)
+        }, e => next(e))
 }
 
 function remove(req, res, next) {

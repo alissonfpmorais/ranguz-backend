@@ -10,9 +10,13 @@ router.route('/')
 
 router.route('/:orderId')
     .get(orderCtrl.get)
-    .put(auth.adminAuth, orderCtrl.update)
-    .delete(auth.adminAuth, orderCtrl.remove)
+    .put(auth.clientAuth, orderCtrl.update)
+    .delete(auth.clientAuth, orderCtrl.remove)
+
+router.route('/finish/:rfid')
+    .get(orderCtrl.finishOrder)
 
 router.param('orderId', orderCtrl.load)
+router.param('rfid', orderCtrl.loadByRfid)
 
 export default router

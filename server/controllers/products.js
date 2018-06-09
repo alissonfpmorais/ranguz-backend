@@ -1,4 +1,5 @@
 import Product from '../models/product'
+import { transformResource } from './base'
 
 function load(req, res, next, id) {
     Product.findById(id)
@@ -10,14 +11,14 @@ function load(req, res, next, id) {
 }
 
 function get(req, res) {
-    return res.json(req.dbProduct)
+    return res.json(transformResource(req.dbProduct))
 }
 
 function create(req, res, next) {
     Product.create({
         name: req.body.name,
         value: req.body.value
-    }).then(savedProduct => res.json(savedProduct), e => next(e))
+    }).then(savedProduct => res.json(transformResource(savedProduct)), e => next(e))
 }
 
 function update(req, res, next) {
@@ -35,7 +36,10 @@ function list(req, res, next) {
         .skip(skip)
         .limit(limit)
         .exec()
-        .then(products => res.json(products), e => next(e))
+        .then(productsDb => {
+            const products = productsDb.map(productsDb => transformResource(productsDb))
+            return res.json(products)
+        }, e => next(e))
 }
 
 function remove(req, res, next) {

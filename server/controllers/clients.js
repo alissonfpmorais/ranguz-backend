@@ -1,16 +1,17 @@
 import Client from '../models/client'
+import { transformResource } from './base'
 
 function load(req, res, next, id) {
     Client.findById(id)
         .exec()
-        .then(client => {
-            req.dbClient = client
+        .then(clientDb => {
+            req.dbClient = clientDb
             return next()
         }, e => next(e))
 }
 
 function get(req, res) {
-    return res.json(req.dbClient)
+    return res.json(transformResource(req.dbClient))
 }
 
 function create(req, res, next) {
@@ -19,8 +20,14 @@ function create(req, res, next) {
         cpf: req.body.cpf,
         register: req.body.register,
         password: req.body.password,
-        balance: req.body.balance
-    }).then(savedClient => res.json(savedClient), e => next(e))
+        rfid: req.body.rfid
+    }).then(savedClient => {
+        console.log("deu certo!")
+        res.json(transformResource(savedClient))
+    }, e => {
+        console.log("deu pau!")
+        next(e)
+    })
 }
 
 function update(req, res, next) {
@@ -38,7 +45,10 @@ function list(req, res, next) {
         .skip(skip)
         .limit(limit)
         .exec()
-        .then(clients => res.json(clients), e => next(e))
+        .then(clientsDb => {
+            const clients = clientsDb.map(clientDb => transformResource(clientDb))
+            return res.json(clients)
+        }, e => next(e))
 }
 
 function remove(req, res, next) {
